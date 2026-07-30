@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>proc-io — Process I/O Monitor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #1e1e2e;  /* Catppuccin Mocha base */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: 'Fira Code', 'Cascadia Code', monospace;
+    padding: 40px;
+  }
+
+  .terminal {
+    background: #181825;  /* mantle */
+    border-radius: 12px;
+    padding: 24px 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    border: 1px solid #313244;  /* surface0 */
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #313244;
+  }
+
+  .terminal-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+  }
+  .dot-red { background: #f38ba8; }
+  .dot-yellow { background: #f9e2af; }
+  .dot-green { background: #a6e3a1; }
+
+  .terminal-title {
+    color: #6c7086;
+    font-size: 14px;
+    margin-left: 8px;
+    letter-spacing: 0.3px;
+  }
+
+  .terminal-title span {
+    color: #a6adc8;
+  }
+
+  .output {
+    color: #cdd6f4;
+    font-size: 14px;
+    line-height: 1.7;
+    white-space: pre;
+  }
+
+  .output .header {
+    color: #cdd6f4;
+    font-weight: 600;
+  }
+
+  .output .dim {
+    color: #585b70;
+  }
+
+  .output .row-0 { color: #89b4fa; }
+  .output .row-1 { color: #a6e3a1; }
+  .output .row-2 { color: #f9e2af; }
+  .output .row-3 { color: #f5c2e7; }
+  .output .row-4 { color: #89dceb; }
+
+  .output .summary-bold {
+    color: #cdd6f4;
+    font-weight: 600;
+  }
+
+  .output .footer {
+    color: #6c7086;
+  }
+
+  .output .highlight {
+    color: #fab387;
+  }
+
+  .prompt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #313244;
+  }
+
+  .prompt-symbol {
+    color: #a6e3a1;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .prompt-text {
+    color: #6c7086;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-dot dot-red"></div>
+    <div class="terminal-dot dot-yellow"></div>
+    <div class="terminal-dot dot-green"></div>
+    <div class="terminal-title"><span>$</span> ./proc-io -- Process I/O Monitor</div>
+  </div>
+
+  <div class="output">$ ./proc-io -n 15
+<strong class="header"> PID    COMM                           RCHAR       WCHAR        READ       WRITE     TOTAL I/O</strong>
+<strong class="dim"> ------ ------------------------ ----------- ----------- ----------- ----------- -------------</strong>
+<span class="row-0"> 421505 hermes                   10,797,580,733 3,792,231,492        5.0G        7.3G         12.3G</span>
+<span class="row-1"> 2876   python3                  778,642,603,051 239,504,953        4.8G      273.1M          5.1G</span>
+<span class="row-2"> 418519 hermes                   2,976,941,114  12,093,815       44.2M        4.2G          4.3G</span>
+<span class="row-3"> 421766 hermes                   2,855,580,290  23,617,701       32.2M        4.2G          4.3G</span>
+<span class="row-4"> 259061 forgejo                  232,627,486 1,823,350,922      456.1M        1.6G          2.0G</span>
+<span class="row-0"> 12     hermes                   49,521,120,596 1,413,499,899      489.7M        1.4G          1.9G</span>
+<span class="row-1"> 396720 bash                     3,219,030,429,836 666,142,824      740.6M      699.1M          1.4G</span>
+<span class="row-2"> 418491 hermes                   896,297,829 120,322,498      831.0M      485.5M          1.3G</span>
+<span class="row-3"> 361366 hermes                   770,977,170 587,826,218      297.4M      580.0M        877.4M</span>
+<span class="row-4"> 397014 bash                     2,996,967,589,666 620,514,599      186.6M      646.4M        833.1M</span>
+<span class="row-0"> 418559 hermes                   381,864,003  16,408,764       38.1M      428.8M        466.8M</span>
+<span class="row-1"> 225607 python3                  415,822,824,951   1,032,250      299.6M        1.1M        300.7M</span>
+<span class="row-2"> 418501 hermes                   220,035,126  22,689,169       73.9M      181.1M        255.1M</span>
+<span class="row-3"> 74     hermes                   157,917,623   5,577,381       46.8M      165.0M        211.8M</span>
+<span class="row-4"> 78     hermes                   156,596,979   5,548,582       36.2M      165.0M        201.2M</span>
+<strong class="dim"> ------ ------------------------ ----------- ----------- ----------- ----------- -------------</strong>
+<strong class="summary-bold"> TOTAL  114 procs                7,480,486,035,658 9,448,070,883       14.5G       22.6G         37.0G</strong>
+
+<strong class="footer"> PID filter: all  |  Sort: total  |  114 processes</strong><span class="highlight">_</span></div>
+
+  <div class="prompt">
+    <div class="prompt-symbol">❯</div>
+    <div class="prompt-text">proc-io v1.0 — C++23 Linux Process I/O Monitor — ./proc-io --help for options</div>
+  </div>
+</div>
+</body>
+</html>
